@@ -28,4 +28,34 @@ if uploaded_file and theme and language:
     tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
     chroma = librosa.feature.chroma_stft(y=y, sr=sr).mean(axis=1)
     key = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][chroma.argmax()]
-    mood = "energetic" if tempo
+    mood = "energetic" if tempo > 120 else "calm"
+
+    st.write(f"🎼 Tempo: {int(tempo)} BPM")
+    st.write(f"🎹 Key: {key}")
+    st.write(f"🧠 Inferred Mood: {mood}")
+
+    prompt = f"""
+You are a professional songwriter. Write original, emotional, industry-grade lyrics for a song.
+
+Music details:
+- Tempo: {int(tempo)} BPM
+- Key: {key}
+- Mood: {mood}
+- Theme: {theme}
+- Language: {language}
+
+Structure it as a song with [Verse 1], [Chorus], [Verse 2], etc.
+Make it catchy, rhyming, and emotionally resonant.
+"""
+
+    with st.spinner("Generating lyrics..."):
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a professional lyricist."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        lyrics = response.choices[0].message.content
+        st.success("Lyrics generated!")
+        st.text_area("🎶 Your AI-generated lyrics:", value=lyrics, height=300)
