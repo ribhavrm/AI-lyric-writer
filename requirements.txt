@@ -1,0 +1,6 @@
+streamlit
+openai
+librosa
+numpy
+soundfile
+pydub
