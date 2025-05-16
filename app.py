@@ -22,7 +22,7 @@ if uploaded_file:
 
     y, sr = librosa.load(file_path)
     
-    tempo, _ = librosa.beat.beat_track(y, sr=sr)
+    tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
     key = librosa.feature.chroma_stft(y=y, sr=sr).mean(axis=1).argmax()
     mood = "energetic" if tempo > 120 else "calm"  # crude mood logic
 
