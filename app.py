@@ -27,19 +27,20 @@ if uploaded_file:
     language = st.selectbox("Language", ["English", "Hindi", "Punjabi", "Hinglish"])
 
     if st.button("Generate Lyrics"):
-        prompt = f\"\"\"
-        You are a professional songwriter. Write original, emotional, industry-grade lyrics for a song.
+        prompt = f"""
+You are a professional songwriter. Write original, emotional, industry-grade lyrics for a song.
 
-        Music details:
-        - Tempo: {int(tempo)} BPM
-        - Key: {key}
-        - Mood: {mood}
-        - Theme: {theme}
-        - Language: {language}
+Music details:
+- Tempo: {int(tempo)} BPM
+- Key: {key}
+- Mood: {mood}
+- Theme: {theme}
+- Language: {language}
 
-        Structure it as a song with [Verse 1], [Chorus], [Verse 2], etc.
-        Make it catchy, rhyming, and emotionally resonant.
-        \"\"\"
+Structure it as a song with [Verse 1], [Chorus], [Verse 2], etc.
+Make it catchy, rhyming, and emotionally resonant.
+"""
+
 
         with st.spinner("Generating lyrics..."):
             response = openai.ChatCompletion.create(
