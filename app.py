@@ -1,7 +1,9 @@
 import os
 import openai
+import streamlit as st
 
-openai.api_key = os.getenv("OPENAI_API_KEY")import streamlit as st
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 import librosa
 import numpy as np
 import openai
